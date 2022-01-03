@@ -105,7 +105,7 @@ export default defineComponent({
 
     return {
       store,
-      tarefas: computed(() => store.state.tarefas),
+      tarefas: computed(() => store.state.tarefa.tarefas),
     };
   },
 });

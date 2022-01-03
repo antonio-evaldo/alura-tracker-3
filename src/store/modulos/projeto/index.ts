@@ -2,7 +2,7 @@ import http from '@/http';
 import IProjeto from '@/interfaces/IProjeto';
 import { Estado } from '@/store';
 import { OBTER_PROJETOS, CADASTRAR_PROJETO, ALTERAR_PROJETO, REMOVER_PROJETO } from '@/store/tipo-acoes';
-import { ALTERA_PROJETO, EXCLUI_PROJETO, DEFINIR_PROJETOS, ATUALIZA_TAREFAS_DO_PROJETO } from '@/store/tipos-mutacoes';
+import { ALTERA_PROJETO, EXCLUI_PROJETO, DEFINIR_PROJETOS } from '@/store/tipos-mutacoes';
 import { Module } from 'vuex';
 
 export interface EstadoProjeto {
@@ -10,6 +10,10 @@ export interface EstadoProjeto {
 }
 
 export const projeto: Module<EstadoProjeto, Estado> = {
+  state: {
+    projetos: []
+  },
+
   mutations: {
     // [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
     //   const projeto: IProjeto = {

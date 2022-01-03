@@ -41,6 +41,9 @@ Para acessar o projeto 1, por exemplo, digitamos a URL `http://localhost:3000/pr
 
 Para fazer uma busca por uma propriedade dos projetos, podemos escrever `http://localhost:3000/projetos?nome=Projeto 2`, ou para fazer uma busca por qualquer uma das propriedades dos projetos, podemos escrever `http://localhost:3000/projetos?q=alura` (podemos verificar essas funcionalidades na documentação).
 
+- Instalar e configurar o axios
+  - Adicionamos a dependência e configuramos uma única instância para toda a aplicação
+
 - Diferença entre *mutations* e *actions*
 
 Enquanto as *mutations* alteram diretamente o estado da aplicação e devem ser síncronas, as *actions* são utilizadas para realizar requisições assíncronas e *commits*. Então se precisarmos alterar o estado da aplicação de acordo com uma requisição HTTP, por exemplo, devemos criar uma *action* para realizar a requisição, e assim que obtivermos os dados de forma assíncrona, chamaremos uma *mutation* com um *commit* para alterar o estado da aplicação.
@@ -48,6 +51,10 @@ Enquanto as *mutations* alteram diretamente o estado da aplicação e devem ser 
 Nossa aplicação agora lida mais diretamente com a API, realizando requisições GET, POST, PUT e DELETE. Trocamos diversos *commits* por *dispatchs*, e um dos únicos *commits* necessários foi o de `DEFINIR_PROJETOS`, quando precisássemos listá-los após realizar alguma alteração.
 
 O outro *commit* que usamos foi o `EXCLUI_PROJETO`, pois como a lista não é re-renderizada quando excluimos um projeto diretamente da API, escolhemos alterar o estado da aplicação para refletir na interfacte a mudança realizada pela *action*.
+
+## Módulo 2
+
+
 
 # alura-tracker
 
