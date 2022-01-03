@@ -6,11 +6,62 @@
     },
     {
       "id": 2,
-      "nome": "Projeto 2 editado"
+      "nome": "Projeto 2"
     },
     {
       "id": 3,
       "nome": "Projeto 3"
+    },
+    {
+      "nome": "Novo projeto",
+      "id": 4
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "Configuração do ambiente perfeito :)",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker 3.0"
+      }
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "abcd",
+      "projeto": {
+        "id": 2,
+        "nome": "Projeto 2"
+      },
+      "id": 2
+    },
+    {
+      "duracaoEmSegundos": 1,
+      "descricao": "teste",
+      "projeto": {
+        "id": 2,
+        "nome": "Projeto 2"
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "Nova tarefa...",
+      "projeto": {
+        "id": 3,
+        "nome": "Projeto 3"
+      },
+      "id": 4
+    },
+    {
+      "duracaoEmSegundos": 0,
+      "descricao": "abc",
+      "projeto": {
+        "nome": "Novo projeto",
+        "id": 4
+      },
+      "id": 5
     }
   ]
 }

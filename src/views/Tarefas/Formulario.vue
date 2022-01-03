@@ -17,7 +17,7 @@
       <div class="column is-3">
         <div class="select">
           <select v-model="idProjeto">
-            <option value="">Selecione o projeto</option>
+            <option value="0">Selecione o projeto</option>
             <option
               :value="projeto.id"
               v-for="projeto in projetos"
@@ -43,10 +43,8 @@
 import { computed, defineComponent } from "vue";
 
 import Temporizador from "./Temporizador.vue";
-import ITarefa from "@/interfaces/ITarefa";
 import IProjeto from "@/interfaces/IProjeto";
 
-import { ADICIONA_TAREFA } from "@/store/tipos-mutacoes";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -59,7 +57,7 @@ export default defineComponent({
 
     return {
       store,
-      projetos: computed(() => store.state.projetos),
+      projetos: computed(() => store.state.projeto.projetos),
     };
   },
 
@@ -76,13 +74,13 @@ export default defineComponent({
         (proj) => proj.id === this.idProjeto
       ) as IProjeto;
 
-      const tarefa: ITarefa = {
+      const tarefa = {
         duracaoEmSegundos: tempoDecorrido,
         descricao: this.descricao,
         projeto,
       };
 
-      this.store.commit(ADICIONA_TAREFA, tarefa);
+      this.$emit("aoFinalizarTarefa", tarefa);
 
       this.descricao = "";
     },

@@ -1,6 +1,6 @@
 <template>
   <Box>
-    <div class="columns">
+    <div class="columns clicavel" @click="tarefaClicada">
       <div class="column is-4">
         {{ tarefa.descricao || "Tarefa sem descrição." }}
       </div>
@@ -23,6 +23,7 @@ import Box from "../../components/Box.vue";
 export default defineComponent({
   name: "Tarefa",
   components: { Cronometro, Box },
+  emits: ['aoClicarTarefa'],
 
   props: {
     tarefa: {
@@ -30,8 +31,17 @@ export default defineComponent({
       required: true,
     },
   },
+
+  methods: {
+    tarefaClicada(): void {
+      this.$emit('aoClicarTarefa', this.tarefa);
+    }
+  },
 });
 </script>
 
 <style scoped>
+.clicavel {
+  cursor: pointer;
+}
 </style>
