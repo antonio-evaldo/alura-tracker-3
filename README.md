@@ -2,113 +2,52 @@
 
 ## Módulo 1
 
-- Instalar e configurar o `vue-router` num projeto existente;
-  - Vimos que o Vue é um framework progressivo e não vem com roteamento por padrão.
-  - Executamos `npm i vue-router@4`, que é versão correta para o Vue3.
+- Instalar e utilizar o [json-server](https://github.com/typicode/json-server)
 
-- Configurar o arquivo de rotas;
-  - Criamos uma lista de objetos, indicando qual componente será responsável por qual rota.
+Instalamos globalmente o `json-server` com o comando `npm install -g json-server`.
+  
+Para rodar o servidor, executamos o comando `json-server --watch db.json` na pasta raiz do projeto. Se o arquivo `db.json` não existir, ele será criado automaticamente.
 
-## Módulo 2
+A estrutura desse arquivo definirá as rotas e recursos da nossa Fake API. Por exemplo, a estrutura abaixo:
 
-- Instalar e configurar o Vuex para gerenciamento de estados globais.
-  - Executamos `npm i vuex@next`, que é a versão correta para o Vue3.
-
-Template básico para configurar uma *store* do Vuex:
-
-```ts
-import { InjectionKey } from 'vue';
-import { Store, createStore, useStore as vuexUseStore } from 'vuex';
-
-interface IProject {
-  id: string;
-  name: string;
-}
-
-interface State {
-  state: {
-    projects: IProject[];
-  }
-}
-
-const key: InjectionKey<Store<State>> = Symbol();
-
-export const store = createStore<State>({
-  state: {
-    projects: [],
-  }
-});
-
-export function useStore(): Store<State> {
-  return vuexUseStore(key);
-};
-```
-
-E para acessar os projetos de forma dinâmica em um componente, usamos a função `computed()` para acessar `store.state.projects`:
-
-```ts
-export default defineComponent({
-  name: 'ComponentName',
-
-  setup() {
-    const store = useStore();
-
-    return {
-      projects: computed(() => store.state.projects)
-    };
-  }
-}) 
-```
-
-## Módulo 3
-
-- Manipular o estado;
-  - Inserimos, editamos, excluímos e listamos os projetos.
-
-Exemplo de *mutation* do *store*:
-
-```ts
-  const ADD_PROJECT = 'ADD_PROJECT';
-
-  export const store = createStore<State>() {
-    state: {
-      projects: [],
+```json
+{
+  "projetos": [
+    {
+      "id": 1,
+      "nome": "Alura Tracker 3.0"
     },
-
-    mutations: {
-      [ADD_PROJECT](state, newProject: IProject) {
-        const project = {
-          id: new Date().toISOString(),
-          name: newProject.name,
-        };
-
-        state.projects.push(project);
+    {
+      "id": 2,
+      "nome": "Projeto 2"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "nome": "Estudando json-server",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker 3.0"
       }
     }
-  };
+  ]
+}
 ```
 
-- Rotas aninhadas;
-  - Agrupar rotas dentro de um mesmo contexto.
-  
-- Tipos de mutações;
-  - Extraímos os nomes das mutações para constantes.
+Produzirá as rotas `http://localhost:3000/projetos` e ` http://localhost:3000/tarefas`.
 
-## Módulo 4
+Para acessar o projeto 1, por exemplo, digitamos a URL `http://localhost:3000/projetos/1`.
 
-- Controlar o estado;
-  - Desenvolvendo a lista de notificações.
+Para fazer uma busca por uma propriedade dos projetos, podemos escrever `http://localhost:3000/projetos?nome=Projeto 2`, ou para fazer uma busca por qualquer uma das propriedades dos projetos, podemos escrever `http://localhost:3000/projetos?q=alura` (podemos verificar essas funcionalidades na documentação).
 
-## Módulo 5
+- Diferença entre *mutations* e *actions*
 
-- Mixins;
-  - Como reaproveitar código e qual a fragilidade dessa técnica.
+Enquanto as *mutations* alteram diretamente o estado da aplicação e devem ser síncronas, as *actions* são utilizadas para realizar requisições assíncronas e *commits*. Então se precisarmos alterar o estado da aplicação de acordo com uma requisição HTTP, por exemplo, devemos criar uma *action* para realizar a requisição, e assim que obtivermos os dados de forma assíncrona, chamaremos uma *mutation* com um *commit* para alterar o estado da aplicação.
 
-- Composition API;
-  - Como reaproveitar código de uma forma mais coesa e legível.
+Nossa aplicação agora lida mais diretamente com a API, realizando requisições GET, POST, PUT e DELETE. Trocamos diversos *commits* por *dispatchs*, e um dos únicos *commits* necessários foi o de `DEFINIR_PROJETOS`, quando precisássemos listá-los após realizar alguma alteração.
 
-- Computed - debugging;
-  - Como depurar código de propriedades computadas.
+O outro *commit* que usamos foi o `EXCLUI_PROJETO`, pois como a lista não é re-renderizada quando excluimos um projeto diretamente da API, escolhemos alterar o estado da aplicação para refletir na interfacte a mudança realizada pela *action*.
 
 # alura-tracker
 

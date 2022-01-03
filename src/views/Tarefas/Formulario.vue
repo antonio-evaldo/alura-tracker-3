@@ -66,7 +66,7 @@ export default defineComponent({
   data() {
     return {
       descricao: "",
-      idProjeto: "",
+      idProjeto: 0,
     };
   },
 

@@ -45,7 +45,7 @@ import { computed, defineComponent } from "vue";
 
 import { useStore } from "@/store";
 import Box from "@/components/Box.vue";
-import { EXCLUI_PROJETO } from '@/store/tipos-mutacoes';
+import { OBTER_PROJETOS, REMOVER_PROJETO } from '@/store/tipo-acoes';
 
 export default defineComponent({
   name: "Lista",
@@ -55,6 +55,7 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    store.dispatch(OBTER_PROJETOS);
 
     return {
       store,
@@ -65,7 +66,7 @@ export default defineComponent({
   methods: {
     excluir(id: string) {
       confirm("Tem certeza que deseja excluir esse projeto?") &&
-        this.store.commit(EXCLUI_PROJETO, id);
+        this.store.dispatch(REMOVER_PROJETO, id);
     },
   },
 });
