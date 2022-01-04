@@ -2,7 +2,7 @@
 
 ## Módulo 1
 
-- Instalar e utilizar o [json-server](https://github.com/typicode/json-server)
+- Instalar e utilizar o [`json-server`](https://github.com/typicode/json-server)
 
 Instalamos globalmente o `json-server` com o comando `npm install -g json-server`.
   
@@ -22,6 +22,7 @@ A estrutura desse arquivo definirá as rotas e recursos da nossa Fake API. Por e
       "nome": "Projeto 2"
     }
   ],
+
   "tarefas": [
     {
       "id": 1,
@@ -58,7 +59,7 @@ O outro *commit* que usamos foi o `EXCLUI_PROJETO`, pois como a lista não é re
 
 Para criar um módulo, criamos uma pasta `modules` com as pastas dos módulos que queremos criar. Cada módulo é um `index.ts` que possui configuração semelhante com a store em si: criamos e exportamos uma interface, no nosso caso `EstadoProjeto`, e exportamos um objeto do tipo `Module<EstadoProjeto, Estado>`, onde `Estado` é o estado global da aplicação que criamos na store.
 
-Esse objeto terá as mesmas propriedades do objeto de configurações de `createStore()`, por exemplo `state`, `mutations` e `actions`. Em alguns casos é necessário inicializar o valor do `state`.
+Esse objeto terá as mesmas propriedades do objeto de configurações de `createStore()`, como `state`, `mutations` e `actions`. Em alguns casos é necessário inicializar o valor do `state`.
 
 Por fim, a store terá uma estrutura como essa:
 
@@ -90,7 +91,7 @@ export const store = createStore<Estado>({
 Sempre que identificamos um problema conhecido, como a store com código demais, precisamos ter uma arquitetura alternativa para que o projeto possa ser mantido muito muito mais tempo antes de virar um legado difícil de trabalhar.
 
 - Promises e async/await 
-  - Vimos na atividade de alternativas que temos outra forma de lidar com métodos assíncronos
+  - Vimos na atividade de alternativas que temos outra forma de lidar com métodos assíncronos.
 
 ## Módulo 3
 
@@ -109,7 +110,7 @@ Sempre que identificamos um problema conhecido, como a store com código demais,
 - Computed como filtro
   - Utilizando o hook `computed`, conseguimos filtrar em memória as tarefas que continham o texto digitado pelo usuário.
 
-- `watch` e `watchEffect`
+- [`watch` e `watchEffect`](https://v3.vuejs.org/api/computed-watch-api.html)
   - Agora sim, reagindo a alterações no campo de busca, buscamos diretamente da API as tarefas que possuem determinada descrição.
 
 - Reatividade 
