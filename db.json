@@ -14,7 +14,7 @@
     },
     {
       "id": 4,
-      "nome": "Novo projeto editado"
+      "nome": "Novo projeto"
     }
   ],
   "tarefas": [
@@ -37,31 +37,13 @@
       "id": 2
     },
     {
-      "duracaoEmSegundos": 1,
-      "descricao": "teste",
+      "duracaoEmSegundos": 3,
+      "descricao": "Nova tarefa",
       "projeto": {
-        "id": 2,
-        "nome": "Projeto 2"
+        "id": 4,
+        "nome": "Novo projeto"
       },
       "id": 3
-    },
-    {
-      "duracaoEmSegundos": 2,
-      "descricao": "Nova tarefa...",
-      "projeto": {
-        "id": 3,
-        "nome": "Projeto 3"
-      },
-      "id": 4
-    },
-    {
-      "duracaoEmSegundos": 0,
-      "descricao": "abcdef",
-      "projeto": {
-        "nome": "Novo projeto",
-        "id": 4
-      },
-      "id": 5
     }
   ]
 }

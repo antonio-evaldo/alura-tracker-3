@@ -50,11 +50,52 @@ Enquanto as *mutations* alteram diretamente o estado da aplicação e devem ser 
 
 Nossa aplicação agora lida mais diretamente com a API, realizando requisições GET, POST, PUT e DELETE. Trocamos diversos *commits* por *dispatchs*, e um dos únicos *commits* necessários foi o de `DEFINIR_PROJETOS`, quando precisássemos listá-los após realizar alguma alteração.
 
-O outro *commit* que usamos foi o `EXCLUI_PROJETO`, pois como a lista não é re-renderizada quando excluimos um projeto diretamente da API, escolhemos alterar o estado da aplicação para refletir na interfacte a mudança realizada pela *action*.
+O outro *commit* que usamos foi o `EXCLUI_PROJETO`, pois como a lista não é re-renderizada quando excluimos um projeto diretamente da API, escolhemos alterar o estado da aplicação para refletir na interface a mudança realizada pela *action*.
 
 ## Módulo 2
 
+- Criando módulos na store
 
+Para criar um módulo, criamos uma pasta `modules` com as pastas dos módulos que queremos criar. Cada módulo é um `index.ts` que possui configuração semelhante com a store em si: criamos e exportamos uma interface, no nosso caso `EstadoProjeto`, e exportamos um objeto do tipo `Module<EstadoProjeto, Estado>`, onde `Estado` é o estado global da aplicação que criamos na store.
+
+Esse objeto terá as mesmas propriedades do objeto de configurações de `createStore()`, por exemplo `state`, `mutations` e `actions`. Em alguns casos é necessário inicializar o valor do `state`.
+
+Por fim, a store terá uma estrutura como essa:
+
+```ts
+export const store = createStore<Estado>({
+  state: {
+    tarefa: {
+      tarefas: []
+    },
+    projeto: {
+      projetos: []
+    },
+    notificacoes: [],
+  },
+
+  mutations: {
+    // mutações globais...
+  },
+
+  modules: {
+    projeto,
+    tarefa
+  }
+})
+```
+
+- A importância de manter a saúde do projeto
+
+Sempre que identificamos um problema conhecido, como a store com código demais, precisamos ter uma arquitetura alternativa para que o projeto possa ser mantido muito muito mais tempo antes de virar um legado difícil de trabalhar.
+
+- Promises e async/await 
+  - Vimos na atividade de alternativas que temos outra forma de lidar com métodos assíncronos
+
+## Módulo 3
+
+- Utilizando a *Composition API*
+  - Refatoramos alguns componentes do projeto, trocando recursos da Options API por recursos da Composition API. A Composition API é um recurso do Vue 3.
 
 # alura-tracker
 

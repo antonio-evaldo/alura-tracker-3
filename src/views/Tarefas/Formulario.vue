@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
 import Temporizador from "./Temporizador.vue";
 import IProjeto from "@/interfaces/IProjeto";
@@ -52,38 +52,34 @@ export default defineComponent({
   components: { Temporizador },
   emits: ["aoFinalizarTarefa"],
 
-  setup() {
+  setup(props, { emit }) {
     const store = useStore();
 
-    return {
-      store,
-      projetos: computed(() => store.state.projeto.projetos),
-    };
-  },
+    const descricao = ref("");
+    const idProjeto = ref(0);
 
-  data() {
-    return {
-      descricao: "",
-      idProjeto: 0,
-    };
-  },
+    const projetos = computed(() => store.state.projeto.projetos);
 
-  methods: {
-    finalizarTarefa(tempoDecorrido: number): void {
-      const projeto = this.projetos.find(
-        (proj) => proj.id === this.idProjeto
+    const finalizarTarefa = (tempoDecorrido: number): void => {
+      const projeto = projetos.value.find(
+        (proj) => proj.id === idProjeto.value
       ) as IProjeto;
 
-      const tarefa = {
+      emit("aoFinalizarTarefa", {
         duracaoEmSegundos: tempoDecorrido,
-        descricao: this.descricao,
+        descricao: descricao.value,
         projeto,
-      };
+      });
 
-      this.$emit("aoFinalizarTarefa", tarefa);
+      descricao.value = "";
+    };
 
-      this.descricao = "";
-    },
+    return {
+      descricao,
+      idProjeto,
+      projetos,
+      finalizarTarefa,
+    };
   },
 });
 </script>
