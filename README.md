@@ -104,6 +104,18 @@ Sempre que identificamos um problema conhecido, como a store com código demais,
   - Utilizamos o segundo parâmetro de `setup()` para acessar o contexto do componente, nele podemos acessar o método `emit()`, em vez de utilizar `this.$emit()`.
 
 
+## Módulo 4
+
+- Computed como filtro
+  - Utilizando o hook `computed`, conseguimos filtrar em memória as tarefas que continham o texto digitado pelo usuário.
+
+- `watch` e `watchEffect`
+  - Agora sim, reagindo a alterações no campo de busca, buscamos diretamente da API as tarefas que possuem determinada descrição.
+
+- Reatividade 
+	- Procurando mergulhos cada vez mais fundos, descobrimos uma das formas de observarmos alterações em variáveis específicas e como reagir a elas.
+
+
 # alura-tracker
 
 ## Project setup

@@ -2,14 +2,28 @@
   <Formulario @aoFinalizarTarefa="salvarTarefa" />
 
   <div class="lista">
+    <Box v-if="!tarefas.length">Ainda não há tarefas.</Box>
+
+    <div class="field">
+      <p class="control has-icons-left">
+        <input
+          v-model="filtro"
+          class="input"
+          type="text"
+          placeholder="Digite para filtrar"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
+
     <Tarefa
       v-for="tarefa in tarefas"
       :key="tarefa.id"
       :tarefa="tarefa"
       @aoClicarTarefa="selecionarTarefa"
     />
-
-    <Box v-if="!tarefas.length">Ainda não há tarefas.</Box>
   </div>
 
   <div
@@ -59,7 +73,7 @@ import {
   OBTER_PROJETOS,
   OBTER_TAREFAS,
 } from "@/store/tipo-acoes";
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref, watchEffect } from "vue";
 
 import Box from "../components/Box.vue";
 import Formulario from "./Tarefas/Formulario.vue";
@@ -71,6 +85,24 @@ export default defineComponent({
     Formulario,
     Tarefa,
     Box,
+  },
+
+  setup() {
+    const store = useStore();
+    store.dispatch(OBTER_TAREFAS);
+    store.dispatch(OBTER_PROJETOS);
+
+    const filtro = ref("");
+
+    watchEffect(() => {
+      store.dispatch(OBTER_TAREFAS, filtro.value);
+    })
+
+    return {
+      filtro,
+      store,
+      tarefas: computed(() => store.state.tarefa.tarefas),
+    };
   },
 
   data() {
@@ -89,24 +121,14 @@ export default defineComponent({
     },
 
     alterarTarefa(tarefa: ITarefa) {
-      this.store.dispatch(ALTERAR_TAREFA, tarefa)
+      this.store
+        .dispatch(ALTERAR_TAREFA, tarefa)
         .then(() => this.fecharModal());
     },
 
     fecharModal() {
       this.tarefaSelecionada = null;
     },
-  },
-
-  setup() {
-    const store = useStore();
-    store.dispatch(OBTER_TAREFAS);
-    store.dispatch(OBTER_PROJETOS);
-
-    return {
-      store,
-      tarefas: computed(() => store.state.tarefa.tarefas),
-    };
   },
 });
 </script>
