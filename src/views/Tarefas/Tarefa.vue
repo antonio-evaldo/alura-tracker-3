@@ -23,7 +23,7 @@ import Box from "../../components/Box.vue";
 export default defineComponent({
   name: "Tarefa",
   components: { Cronometro, Box },
-  emits: ['aoClicarTarefa'],
+  emits: ["aoClicarTarefa"],
 
   props: {
     tarefa: {
@@ -32,9 +32,13 @@ export default defineComponent({
     },
   },
 
-  methods: {
-    tarefaClicada(): void {
-      this.$emit('aoClicarTarefa', this.tarefa);
+  setup(props, { emit }) {
+    const tarefaClicada = (): void => {
+      emit("aoClicarTarefa", props.tarefa);
+    };
+
+    return {
+      tarefaClicada
     }
   },
 });

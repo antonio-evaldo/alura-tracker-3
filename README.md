@@ -97,6 +97,13 @@ Sempre que identificamos um problema conhecido, como a store com código demais,
 - Utilizando a *Composition API*
   - Refatoramos alguns componentes do projeto, trocando recursos da Options API por recursos da Composition API. A Composition API é um recurso do Vue 3.
 
+- Algumas das mudanças:
+  - Não utilizamos mais o `this`, já que no `setup()` o componente ainda não existe;
+  - Eliminamos a option `data()` e agora importamos o método `ref()` do `vue` para criar variáveis reativas. Para **acessarmos ou alterarmos** o valor dessas variáveis, usamos `nomeDaVariavel.value`.
+  - Utilizamos o primeiro parâmetro de `setup()` para acessar as `props` (mas mantemos a option `props` da Options API);
+  - Utilizamos o segundo parâmetro de `setup()` para acessar o contexto do componente, nele podemos acessar o método `emit()`, em vez de utilizar `this.$emit()`.
+
+
 # alura-tracker
 
 ## Project setup
